@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Display</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Your Name</h1>
+        <form id="nameForm">
+            <input type="text" id="nameInput" placeholder="Your Name" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="nameDisplay"></div>
+    </div>
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value;
+
+            const response = await fetch('/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                document.getElementById('nameDisplay').innerText = `Hello, ${result.name}!`;
+            } else {
+                alert(result.message);
+            }
+        });
+    </script>
+</body>
+</html>
