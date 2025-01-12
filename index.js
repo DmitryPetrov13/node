@@ -1,4 +1,4 @@
-// [index.js]
+// [index.js] with server app export.
 
 const express = require("express");
 
@@ -12,3 +12,6 @@ app.get('/hello-world', (request, response) => {
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+// Export the Express API
+module.exports = app;
